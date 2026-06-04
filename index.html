@@ -4,857 +4,781 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Najah Nephrology Research Hub</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  :root {
-    --navy: #0a1628;
-    --teal: #00c2b3;
-    --teal-soft: #00e5d4;
-    --lavender: #a78bfa;
-    --white: #f0f6ff;
-    --muted: #8fafc8;
-    --card: rgba(255,255,255,0.04);
-    --border: rgba(0,194,179,0.18);
-  }
-
-  body {
-    background: var(--navy);
-    color: var(--white);
-    font-family: 'DM Sans', sans-serif;
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
-
-  body::before {
-    content: '';
-    position: fixed; inset: 0;
-    background:
-      radial-gradient(ellipse 80% 60% at 10% 20%, rgba(0,194,179,0.07) 0%, transparent 60%),
-      radial-gradient(ellipse 60% 80% at 90% 80%, rgba(167,139,250,0.06) 0%, transparent 60%);
-    pointer-events: none; z-index: 0;
-  }
-
-  .container {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 0 24px 80px;
-    position: relative; z-index: 1;
-  }
-
-  /* HEADER */
-  header {
-    padding: 52px 0 40px;
-    text-align: center;
-  }
-
-  .kidney-wrap {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 18px;
-  }
-
-  .kidney {
-    width: 52px; height: 38px;
-    background: linear-gradient(135deg, var(--teal), var(--lavender));
-    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-    transform: rotate(-20deg);
-    box-shadow: 0 0 40px rgba(0,194,179,0.35);
-    animation: pulse-glow 3s ease-in-out infinite;
-  }
-
-  .kidney.right {
-    transform: rotate(20deg) scaleX(-1);
-    animation-delay: -1.5s;
-  }
-
-  @keyframes pulse-glow {
-    0%,100% { box-shadow: 0 0 25px rgba(0,194,179,0.3); }
-    50%      { box-shadow: 0 0 55px rgba(0,194,179,0.55); }
-  }
-
-  .nnuh-tag {
-    display: inline-block;
-    font-family: 'Syne', sans-serif;
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--teal);
-    border: 1px solid rgba(0,194,179,0.35);
-    padding: 4px 14px;
-    border-radius: 100px;
-    margin-bottom: 14px;
-    background: rgba(0,194,179,0.07);
-  }
-
-  h1 {
-    font-family: 'Syne', sans-serif;
-    font-size: clamp(1.8rem, 5vw, 2.8rem);
-    font-weight: 800;
-    letter-spacing: -0.02em;
-    background: linear-gradient(135deg, #fff 0%, var(--teal-soft) 50%, var(--lavender) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    margin-bottom: 14px;
-    line-height: 1.15;
-  }
-
-  .welcome-box {
-    max-width: 580px;
-    margin: 0 auto;
-    background: rgba(0,194,179,0.06);
-    border: 1px solid rgba(0,194,179,0.15);
-    border-radius: 14px;
-    padding: 16px 22px;
-    color: #a8c8e0;
-    font-size: 0.92rem;
-    line-height: 1.65;
-    font-weight: 300;
-  }
-
-  /* ═══════════════════════════════
-     LANDING — two big choice cards
-  ═══════════════════════════════ */
-  #landing {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 28px;
-    padding: 10px 0 60px;
-  }
-
-  .choice-cards {
-    display: flex;
-    gap: 22px;
-    flex-wrap: wrap;
-    justify-content: center;
-    width: 100%;
-  }
-
-  .choice-card {
-    flex: 1;
-    min-width: 240px;
-    max-width: 340px;
-    background: rgba(255,255,255,0.04);
-    border: 1px solid var(--border);
-    border-radius: 22px;
-    padding: 36px 28px 30px;
-    cursor: pointer;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-    transition: transform 0.28s cubic-bezier(0.34,1.56,0.64,1),
-                border-color 0.22s, box-shadow 0.22s;
-    backdrop-filter: blur(12px);
-  }
-
-  .choice-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0; height: 2px;
-    background: linear-gradient(90deg, transparent, var(--card-accent, var(--teal)), transparent);
-    opacity: 0;
-    transition: opacity 0.25s;
-  }
-
-  .choice-card:hover {
-    transform: translateY(-5px) scale(1.02);
-    border-color: var(--card-accent, var(--teal));
-    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-  }
-
-  .choice-card:hover::before { opacity: 1; }
-
-  .choice-card .c-icon {
-    font-size: 2.6rem;
-    margin-bottom: 16px;
-    display: block;
-    filter: drop-shadow(0 0 12px rgba(0,194,179,0.4));
-  }
-
-  .choice-card h2 {
-    font-family: 'Syne', sans-serif;
-    font-size: 1.15rem;
-    font-weight: 800;
-    margin-bottom: 10px;
-    color: var(--white);
-  }
-
-  .choice-card p {
-    font-size: 0.83rem;
-    color: var(--muted);
-    line-height: 1.65;
-    font-weight: 300;
-    margin-bottom: 22px;
-  }
-
-  .choice-btn {
-    display: inline-block;
-    padding: 10px 26px;
-    border-radius: 100px;
-    border: none;
-    font-family: 'Syne', sans-serif;
-    font-size: 0.82rem;
-    font-weight: 700;
-    cursor: pointer;
-    letter-spacing: 0.03em;
-    transition: transform 0.2s, opacity 0.2s;
-  }
-
-  .choice-btn:hover { transform: scale(1.05); opacity: 0.9; }
-
-  .btn-ongoing { background: linear-gradient(135deg, var(--teal), #00a898); color: var(--navy); }
-  .btn-future  { background: linear-gradient(135deg, var(--lavender), #7c5ce0); color: #fff; }
-
-  /* ═══════════════════════════
-     BACK NAV
-  ═══════════════════════════ */
-  .back-nav {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 18px 0 4px;
-  }
-
-  .back-btn {
-    background: rgba(255,255,255,0.06);
-    border: 1px solid var(--border);
-    color: var(--muted);
-    padding: 6px 18px;
-    border-radius: 100px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.82rem;
-    cursor: pointer;
-    transition: all 0.18s;
-  }
-
-  .back-btn:hover { border-color: var(--teal); color: var(--teal); }
-
-  .back-crumb {
-    font-family: 'Syne', sans-serif;
-    font-size: 0.78rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-
-  /* ═══════════════════════════════
-     SECTIONS — hide/show
-  ═══════════════════════════════ */
-  .section { display: none; }
-  .section.active { display: block; }
-
-  /* ═══════════════════════════════
-     SHARED FORM / FILTER STYLES
-  ═══════════════════════════════ */
-  .filter-bar {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    justify-content: center;
-    margin: 32px 0 26px;
-  }
-
-  .filter-btn {
-    padding: 7px 18px;
-    border-radius: 100px;
-    border: 1px solid var(--border);
-    background: var(--card);
-    color: var(--muted);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.82rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.22s ease;
-    backdrop-filter: blur(8px);
-  }
-
-  .filter-btn:hover { border-color: var(--teal); color: var(--teal); }
-
-  .filter-btn.active {
-    background: var(--teal);
-    border-color: var(--teal);
-    color: var(--navy);
-    font-weight: 700;
-  }
-
-  .add-form {
-    background: rgba(255,255,255,0.04);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 26px 26px 22px;
-    margin-bottom: 38px;
-    backdrop-filter: blur(12px);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .add-form::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0; height: 2px;
-    background: linear-gradient(90deg, var(--teal), var(--lavender));
-  }
-
-  .add-form h2 {
-    font-family: 'Syne', sans-serif;
-    font-size: 0.95rem;
-    font-weight: 700;
-    color: var(--teal-soft);
-    margin-bottom: 18px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    margin-bottom: 12px;
-  }
-
-  .form-row.three { grid-template-columns: 1fr 1fr 1fr; }
-  .form-row.four  { grid-template-columns: 1fr 1fr 1fr 1fr; }
-  .form-row.full  { grid-template-columns: 1fr; }
-
-  .field label {
-    display: block;
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 5px;
-  }
-
-  .field input,
-  .field select,
-  .field textarea {
-    width: 100%;
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(0,194,179,0.2);
-    border-radius: 10px;
-    padding: 11px 14px;
-    color: var(--white);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.88rem;
-    outline: none;
-    transition: border-color 0.2s;
-    resize: vertical;
-  }
-
-  .field input:focus,
-  .field select:focus,
-  .field textarea:focus { border-color: var(--teal); }
-
-  .field input::placeholder,
-  .field textarea::placeholder { color: #4a6a85; }
-
-  .field select option { background: #0d1f3c; }
-
-  /* file upload */
-  .file-drop {
-    border: 2px dashed rgba(0,194,179,0.25);
-    border-radius: 10px;
-    padding: 16px;
-    text-align: center;
-    cursor: pointer;
-    position: relative;
-    transition: border-color 0.2s, background 0.2s;
-  }
-  .file-drop:hover { border-color: var(--teal); background: rgba(0,194,179,0.04); }
-  .file-drop input[type=file] {
-    position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%;
-  }
-  .file-drop-text { font-size: 0.8rem; color: var(--muted); }
-  .file-drop-name { font-size: 0.8rem; color: var(--teal-soft); font-weight: 600; margin-top: 3px; }
-
-  .form-bottom {
-    display: flex;
-    align-items: flex-end;
-    gap: 12px;
-    margin-top: 4px;
-    flex-wrap: wrap;
-  }
-
-  .submit-btn {
-    padding: 12px 32px;
-    border-radius: 100px;
-    border: none;
-    background: linear-gradient(135deg, var(--teal), var(--lavender));
-    color: var(--navy);
-    font-family: 'Syne', sans-serif;
-    font-size: 0.9rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.25s cubic-bezier(0.34,1.56,0.64,1);
-    letter-spacing: 0.02em;
-    white-space: nowrap;
-  }
-
-  .submit-btn:hover  { transform: scale(1.04); opacity: 0.9; }
-  .submit-btn:active { transform: scale(0.97); }
-
-  .form-msg {
-    font-size: 0.82rem;
-    color: var(--teal-soft);
-    min-height: 18px;
-    margin-top: 6px;
-  }
-
-  /* IDEAS HEADER */
-  .ideas-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 18px;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-
-  .ideas-header h3 {
-    font-family: 'Syne', sans-serif;
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--muted);
-  }
-
-  .ideas-header h3 span { color: var(--teal-soft); font-size: 1.2rem; }
-
-  .search-wrap { position: relative; }
-
-  .search-wrap input {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 100px;
-    padding: 8px 16px 8px 36px;
-    color: var(--white);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.83rem;
-    outline: none;
-    width: 220px;
-    transition: border-color 0.2s;
-  }
-
-  .search-wrap input:focus { border-color: var(--teal); }
-  .search-wrap input::placeholder { color: var(--muted); }
-  .search-icon {
-    position: absolute; left: 12px; top: 50%;
-    transform: translateY(-50%);
-    color: var(--muted); font-size: 0.85rem;
-    pointer-events: none;
-  }
-
-  /* ═══════════════════════
-     FUTURE IDEAS — CARDS
-  ═══════════════════════ */
-  .cards-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
-    gap: 14px;
-  }
-
-  .idea-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 20px 22px;
-    cursor: pointer;
-    transition: all 0.28s cubic-bezier(0.34,1.56,0.64,1);
-    position: relative;
-    overflow: hidden;
-    backdrop-filter: blur(10px);
-    animation: card-in 0.4s ease both;
-  }
-
-  @keyframes card-in {
-    from { opacity: 0; transform: translateY(14px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  .idea-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0; height: 2px;
-    background: linear-gradient(90deg, transparent, var(--accent, var(--teal)), transparent);
-    opacity: 0; transition: opacity 0.25s;
-  }
-
-  .idea-card:hover {
-    transform: translateY(-3px) scale(1.01);
-    border-color: var(--accent, var(--teal));
-    box-shadow: 0 16px 48px rgba(0,0,0,0.25);
-  }
-
-  .idea-card:hover::before { opacity: 1; }
-
-  .idea-card.expanded {
-    grid-column: 1 / -1;
-    border-color: var(--accent, var(--teal));
-    background: rgba(255,255,255,0.06);
-    cursor: default;
-  }
-
-  .card-cat {
-    display: inline-flex; align-items: center; gap: 5px;
-    font-size: 0.7rem; font-weight: 700;
-    letter-spacing: 0.07em; text-transform: uppercase;
-    margin-bottom: 10px; opacity: 0.9;
-  }
-
-  .card-title {
-    font-family: 'Syne', sans-serif;
-    font-size: 0.97rem; font-weight: 700;
-    line-height: 1.4; margin-bottom: 6px; color: var(--white);
-  }
-
-  .card-type { font-size: 0.78rem; color: var(--muted); margin-bottom: 6px; }
-
-  .card-detail {
-    display: none;
-    margin-top: 14px; padding-top: 14px;
-    border-top: 1px solid rgba(255,255,255,0.07);
-    animation: card-in 0.3s ease;
-  }
-
-  .idea-card.expanded .card-detail { display: block; }
-
-  .detail-row {
-    display: flex; gap: 8px;
-    margin-bottom: 8px;
-    font-size: 0.84rem; line-height: 1.55;
-  }
-
-  .detail-label {
-    font-size: 0.7rem; font-weight: 700;
-    letter-spacing: 0.06em; text-transform: uppercase;
-    color: var(--muted); white-space: nowrap;
-    padding-top: 2px; min-width: 70px;
-  }
-
-  .detail-val { color: #c0daf0; }
-
-  .assigned-pill {
-    display: inline-flex; align-items: center; gap: 5px;
-    background: rgba(167,139,250,0.12);
-    border: 1px solid rgba(167,139,250,0.3);
-    border-radius: 100px;
-    padding: 3px 10px 3px 7px;
-    font-size: 0.78rem; color: #c4b5fd; font-weight: 500;
-  }
-
-  .assigned-avatar {
-    width: 18px; height: 18px; border-radius: 50%;
-    background: linear-gradient(135deg, var(--teal), var(--lavender));
-    display: flex; align-items: center; justify-content: center;
-    font-size: 0.6rem; font-weight: 800;
-    color: var(--navy); flex-shrink: 0;
-  }
-
-  .card-footer {
-    display: flex; justify-content: space-between;
-    align-items: center; margin-top: 12px;
-    flex-wrap: wrap; gap: 6px;
-  }
-
-  .card-time { font-size: 0.72rem; color: #4a6a85; }
-  .toggle-hint { font-size: 0.75rem; opacity: 0.7; transition: opacity 0.2s; }
-  .idea-card:hover .toggle-hint { opacity: 1; }
-
-  /* ═══════════════════════
-     ONGOING — CARDS
-  ═══════════════════════ */
-  .ongoing-grid {
-    display: flex; flex-direction: column; gap: 14px;
-  }
-
-  .ongoing-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-left: 4px solid var(--status-color, var(--teal));
-    border-radius: 16px;
-    padding: 20px 24px;
-    position: relative;
-    backdrop-filter: blur(10px);
-    animation: card-in 0.4s ease both;
-    transition: transform 0.2s;
-  }
-
-  .ongoing-card:hover { transform: translateX(4px); }
-
-  .ongoing-card-top {
-    display: flex; align-items: flex-start;
-    gap: 12px; flex-wrap: wrap;
-  }
-
-  .ongoing-title {
-    font-family: 'Syne', sans-serif;
-    font-size: 1rem; font-weight: 700;
-    color: var(--white); flex: 1;
-    line-height: 1.35;
-  }
-
-  .status-pill {
-    padding: 3px 12px; border-radius: 100px;
-    font-size: 0.7rem; font-weight: 700;
-    text-transform: uppercase; letter-spacing: 0.07em;
-    white-space: nowrap;
-  }
-
-  .pill-ongoing   { background: rgba(0,194,179,0.15);  color: var(--teal-soft); }
-  .pill-planned   { background: rgba(143,175,200,0.15); color: var(--muted); }
-  .pill-paused    { background: rgba(255,190,61,0.15);  color: #ffbe3d; }
-  .pill-completed { background: rgba(52,211,153,0.15);  color: #34d399; }
-
-  .ongoing-meta {
-    display: flex; gap: 18px; flex-wrap: wrap;
-    margin-top: 10px; font-size: 0.8rem; color: var(--muted);
-  }
-
-  .ongoing-meta span { display: flex; align-items: center; gap: 5px; }
-
-  .ongoing-notes {
-    margin-top: 10px; font-size: 0.84rem;
-    color: #a8c8e0; line-height: 1.6;
-  }
-
-  .file-badge {
-    display: inline-flex; align-items: center; gap: 6px;
-    margin-top: 10px;
-    background: rgba(0,194,179,0.08);
-    border: 1px solid rgba(0,194,179,0.2);
-    border-radius: 100px;
-    padding: 4px 14px;
-    font-size: 0.78rem; color: var(--teal-soft);
-    font-weight: 600; cursor: pointer;
-    transition: background 0.18s;
-  }
-
-  .file-badge:hover { background: rgba(0,194,179,0.16); }
-
-  .delete-btn {
-    position: absolute; top: 14px; right: 14px;
-    background: none; border: none;
-    color: rgba(143,175,200,0.4);
-    cursor: pointer; font-size: 0.9rem;
-    transition: color 0.15s;
-    line-height: 1;
-  }
-
-  .delete-btn:hover { color: #ff6b6b; }
-
-  /* status filter chips */
-  .status-chips {
-    display: flex; gap: 8px; flex-wrap: wrap;
-    margin-bottom: 20px;
-  }
-
-  .s-chip {
-    padding: 5px 16px; border-radius: 100px;
-    border: 1px solid var(--border);
-    background: var(--card);
-    font-size: 0.78rem; font-weight: 600;
-    cursor: pointer; transition: all 0.15s;
-    color: var(--muted);
-    font-family: 'DM Sans', sans-serif;
-  }
-
-  .s-chip.active, .s-chip:hover {
-    background: var(--teal); color: var(--navy);
-    border-color: var(--teal);
-  }
-
-  /* EMPTY / LOADING */
-  .empty-state {
-    text-align: center; padding: 70px 20px; color: var(--muted);
-  }
-
-  .empty-hex {
-    width: 80px; height: 88px;
-    background: rgba(0,194,179,0.08);
-    clip-path: polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);
-    display: flex; align-items: center; justify-content: center;
-    margin: 0 auto 20px; font-size: 2rem;
-  }
-
-  .empty-state p { font-size: 0.95rem; max-width: 300px; margin: 0 auto; line-height: 1.6; }
-  .loading { text-align: center; padding: 40px; color: var(--muted); font-size: 0.9rem; letter-spacing: 0.05em; }
-
-  @media (max-width: 640px) {
-    .form-row, .form-row.three, .form-row.four { grid-template-columns: 1fr; }
-    .cards-grid { grid-template-columns: 1fr; }
-    .ideas-header { flex-direction: column; align-items: flex-start; }
-    .search-wrap input { width: 100%; }
-    .choice-card { max-width: 100%; }
-  }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --navy:    #0d1b2a;
+  --navy2:   #162032;
+  --teal:    #1a6b6b;
+  --teal2:   #1f8080;
+  --teal3:   #e8f4f4;
+  --gold:    #b8843a;
+  --gold2:   #f5ecd9;
+  --cream:   #f8f5f0;
+  --white:   #ffffff;
+  --border:  #dde5e4;
+  --muted:   #6b7c7a;
+  --text:    #1a2e2c;
+  --red:     #c0392b;
+  --green:   #217a4b;
+  --green2:  #e6f5ee;
+  --orange:  #c05c1a;
+  --orange2: #fdf0e4;
+  --blue:    #1a5276;
+  --blue2:   #e8f0f8;
+  --radius:  14px;
+  --shadow:  0 2px 16px rgba(13,27,42,.08);
+  --shadow2: 0 6px 32px rgba(13,27,42,.13);
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--cream);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* ── HEADER ── */
+.site-header {
+  background: var(--navy);
+  padding: 0 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+  position: sticky; top: 0; z-index: 100;
+  box-shadow: 0 2px 12px rgba(0,0,0,.2);
+}
+
+.header-left { display: flex; align-items: center; gap: 14px; }
+
+.logo-ring {
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--teal2), #2aacac);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.logo-ring svg { width: 20px; height: 20px; fill: none; stroke: #fff; stroke-width: 2.2; }
+
+.header-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.05rem; font-weight: 700;
+  color: #fff; line-height: 1.2;
+}
+.header-sub { font-size: 0.72rem; color: #7fa8a8; letter-spacing: .05em; }
+
+.header-tag {
+  font-size: 0.72rem; font-weight: 600;
+  color: #7fa8a8; letter-spacing: .08em;
+  text-transform: uppercase;
+  border: 1px solid rgba(127,168,168,.3);
+  padding: 3px 12px; border-radius: 100px;
+}
+
+/* ══════════════════════
+   LANDING
+══════════════════════ */
+#landing {
+  min-height: calc(100vh - 64px);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 60px 24px;
+  background: linear-gradient(160deg, #f0f6f5 0%, #e8f0ef 50%, #f5f0ea 100%);
+}
+
+.landing-eyebrow {
+  font-size: 0.74rem; font-weight: 600;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: var(--teal2); margin-bottom: 14px;
+}
+
+.landing-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 700; line-height: 1.15;
+  color: var(--navy); text-align: center;
+  margin-bottom: 14px;
+  max-width: 640px;
+}
+
+.landing-sub {
+  font-size: 0.95rem; color: var(--muted);
+  line-height: 1.7; text-align: center;
+  max-width: 480px; margin-bottom: 56px;
+  font-weight: 300;
+}
+
+.choice-row {
+  display: flex; gap: 24px; flex-wrap: wrap;
+  justify-content: center; width: 100%;
+  max-width: 760px;
+}
+
+.choice-card {
+  flex: 1; min-width: 260px; max-width: 340px;
+  background: var(--white);
+  border-radius: 20px;
+  box-shadow: var(--shadow2);
+  padding: 40px 32px 32px;
+  cursor: pointer;
+  border: 1.5px solid transparent;
+  transition: transform .25s cubic-bezier(.34,1.56,.64,1),
+              box-shadow .25s, border-color .2s;
+  text-align: center;
+  position: relative; overflow: hidden;
+}
+
+.choice-card::after {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 4px;
+  background: var(--cc-bar, var(--teal2));
+  transform: scaleX(0); transform-origin: left;
+  transition: transform .25s;
+}
+
+.choice-card:hover { transform: translateY(-6px); box-shadow: 0 20px 56px rgba(13,27,42,.16); }
+.choice-card:hover::after { transform: scaleX(1); }
+.choice-card:hover { border-color: var(--cc-bar, var(--teal2)); }
+
+.cc-icon {
+  width: 72px; height: 72px; border-radius: 20px;
+  background: var(--cc-bg, var(--teal3));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2rem; margin: 0 auto 20px;
+  transition: transform .25s;
+}
+.choice-card:hover .cc-icon { transform: scale(1.08) rotate(-3deg); }
+
+.cc-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem; font-weight: 700;
+  color: var(--navy); margin-bottom: 10px;
+}
+
+.cc-desc {
+  font-size: 0.84rem; color: var(--muted);
+  line-height: 1.65; font-weight: 300;
+  margin-bottom: 24px;
+}
+
+.cc-btn {
+  display: inline-block;
+  padding: 10px 28px; border-radius: 100px; border: none;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.85rem; font-weight: 600;
+  cursor: pointer;
+  background: var(--cc-bar, var(--teal2));
+  color: #fff;
+  transition: opacity .18s, transform .18s;
+}
+.cc-btn:hover { opacity: .88; transform: scale(1.04); }
+
+/* ══════════════════════
+   PAGE CHROME
+══════════════════════ */
+.section { display: none; }
+.section.active { display: block; }
+
+.page-bar {
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 40px;
+  display: flex; align-items: center; gap: 12px;
+}
+
+.back-btn {
+  display: flex; align-items: center; gap: 6px;
+  background: none; border: 1.5px solid var(--border);
+  color: var(--muted); padding: 6px 16px;
+  border-radius: 100px; font-family: 'DM Sans', sans-serif;
+  font-size: 0.8rem; font-weight: 500; cursor: pointer;
+  transition: border-color .15s, color .15s;
+}
+.back-btn:hover { border-color: var(--teal2); color: var(--teal2); }
+
+.page-crumb {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem; font-weight: 700; color: var(--navy);
+}
+
+.page-body { max-width: 980px; margin: 0 auto; padding: 36px 28px 80px; }
+
+/* ══════════════════════
+   SHARED FORM CARD
+══════════════════════ */
+.form-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 30px 32px;
+  margin-bottom: 36px;
+  border: 1px solid var(--border);
+  position: relative; overflow: hidden;
+}
+
+.form-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--teal2), #2aacac, var(--gold));
+}
+
+.form-card-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.05rem; font-weight: 700;
+  color: var(--navy); margin-bottom: 22px;
+  display: flex; align-items: center; gap: 8px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.fg-3 { grid-template-columns: 1fr 1fr 1fr; }
+.fg-4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+.fg-full { grid-column: 1 / -1; }
+
+.field-group label {
+  display: block; font-size: 0.72rem; font-weight: 600;
+  letter-spacing: .06em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 6px;
+}
+
+.field-group input,
+.field-group select,
+.field-group textarea {
+  width: 100%; padding: 10px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: 9px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.88rem; color: var(--text);
+  background: var(--white);
+  outline: none;
+  transition: border-color .18s, box-shadow .18s;
+  resize: vertical;
+}
+
+.field-group input:focus,
+.field-group select:focus,
+.field-group textarea:focus {
+  border-color: var(--teal2);
+  box-shadow: 0 0 0 3px rgba(31,128,128,.1);
+}
+
+.field-group input::placeholder,
+.field-group textarea::placeholder { color: #b0bfbe; }
+
+/* file upload */
+.file-zone {
+  border: 2px dashed var(--border);
+  border-radius: 9px; padding: 18px;
+  text-align: center; cursor: pointer;
+  position: relative;
+  transition: border-color .18s, background .18s;
+}
+.file-zone:hover { border-color: var(--teal2); background: var(--teal3); }
+.file-zone input[type=file] {
+  position: absolute; inset: 0; opacity: 0;
+  cursor: pointer; width: 100%; height: 100%;
+}
+.file-zone-icon { font-size: 1.5rem; margin-bottom: 4px; }
+.file-zone-text { font-size: 0.8rem; color: var(--muted); }
+.file-zone-name { font-size: 0.8rem; color: var(--teal2); font-weight: 600; margin-top: 3px; }
+
+.form-footer {
+  display: flex; align-items: center; gap: 14px;
+  margin-top: 20px; flex-wrap: wrap;
+}
+
+.primary-btn {
+  padding: 11px 32px; border-radius: 100px; border: none;
+  background: var(--navy); color: #fff;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.88rem; font-weight: 600;
+  cursor: pointer; letter-spacing: .02em;
+  transition: background .18s, transform .18s;
+}
+.primary-btn:hover { background: var(--teal2); transform: scale(1.03); }
+
+.form-msg { font-size: 0.82rem; min-height: 18px; }
+.form-msg.ok  { color: var(--green); }
+.form-msg.err { color: var(--red); }
+
+/* ══════════════════════
+   SECTION HEADER ROW
+══════════════════════ */
+.list-header {
+  display: flex; align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px; flex-wrap: wrap; gap: 10px;
+}
+
+.list-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.05rem; font-weight: 700; color: var(--navy);
+}
+
+.count-badge {
+  background: var(--navy); color: #fff;
+  border-radius: 100px; padding: 2px 12px;
+  font-size: 0.75rem; font-weight: 600;
+  margin-left: 8px;
+}
+
+.search-box {
+  padding: 8px 16px 8px 38px;
+  border: 1.5px solid var(--border);
+  border-radius: 100px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.83rem; outline: none;
+  transition: border-color .18s;
+  width: 220px;
+}
+.search-box:focus { border-color: var(--teal2); }
+
+.search-wrap { position: relative; }
+.search-icon {
+  position: absolute; left: 12px; top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.82rem; color: var(--muted);
+  pointer-events: none;
+}
+
+/* chips */
+.chips { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+
+.chip {
+  padding: 5px 16px; border-radius: 100px;
+  border: 1.5px solid var(--border);
+  background: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.78rem; font-weight: 600;
+  cursor: pointer; color: var(--muted);
+  transition: all .15s;
+}
+.chip.active, .chip:hover {
+  background: var(--navy); color: #fff; border-color: var(--navy);
+}
+
+/* ══════════════════════
+   ONGOING CARDS
+══════════════════════ */
+.ongoing-list { display: flex; flex-direction: column; gap: 14px; }
+
+.o-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  border-left: 5px solid var(--oc-color, var(--teal2));
+  padding: 22px 26px;
+  position: relative;
+  transition: transform .2s, box-shadow .2s;
+  animation: fadeUp .35s ease both;
+}
+
+.o-card:hover { transform: translateX(4px); box-shadow: var(--shadow2); }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.o-card-top {
+  display: flex; align-items: flex-start;
+  gap: 12px; flex-wrap: wrap;
+}
+
+.o-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.02rem; font-weight: 700;
+  color: var(--navy); flex: 1; line-height: 1.35;
+}
+
+.s-pill {
+  padding: 3px 12px; border-radius: 100px;
+  font-size: 0.71rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .06em;
+  white-space: nowrap; flex-shrink: 0;
+}
+.s-pill.ongoing   { background: var(--teal3);   color: var(--teal); }
+.s-pill.planned   { background: var(--blue2);   color: var(--blue); }
+.s-pill.paused    { background: var(--orange2); color: var(--orange); }
+.s-pill.completed { background: var(--green2);  color: var(--green); }
+
+/* stage progress bar */
+.stage-wrap {
+  margin-top: 14px;
+  background: #f0f4f3;
+  border-radius: 100px;
+  height: 6px; overflow: hidden;
+  position: relative;
+}
+.stage-bar {
+  height: 100%; border-radius: 100px;
+  background: linear-gradient(90deg, var(--teal2), #2aacac);
+  transition: width .5s ease;
+}
+
+.stage-label-row {
+  display: flex; justify-content: space-between;
+  align-items: center; margin-top: 6px;
+  flex-wrap: wrap; gap: 4px;
+}
+.stage-name-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: var(--teal3); color: var(--teal2);
+  border-radius: 100px; padding: 2px 10px;
+  font-size: 0.73rem; font-weight: 700;
+}
+.stage-pct { font-size: 0.72rem; color: var(--muted); }
+
+.o-meta {
+  display: flex; gap: 18px; flex-wrap: wrap;
+  margin-top: 12px; font-size: 0.8rem; color: var(--muted);
+}
+.o-meta span { display: flex; align-items: center; gap: 5px; }
+
+.o-notes {
+  margin-top: 10px; font-size: 0.84rem;
+  color: #4a5e5c; line-height: 1.65;
+}
+
+.file-pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  margin-top: 10px;
+  background: #f0f6f5; border: 1px solid #c8dedd;
+  border-radius: 100px; padding: 4px 14px;
+  font-size: 0.78rem; color: var(--teal2); font-weight: 600;
+  cursor: pointer; transition: background .15s;
+}
+.file-pill:hover { background: var(--teal3); }
+
+.del-btn {
+  position: absolute; top: 14px; right: 14px;
+  background: none; border: none;
+  color: #ccc; cursor: pointer; font-size: 0.85rem;
+  transition: color .15s;
+}
+.del-btn:hover { color: var(--red); }
+
+/* ══════════════════════
+   FUTURE IDEAS CARDS
+══════════════════════ */
+.filter-bar {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  margin-bottom: 28px;
+}
+
+.f-chip {
+  padding: 6px 18px; border-radius: 100px;
+  border: 1.5px solid var(--border);
+  background: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.8rem; font-weight: 500;
+  cursor: pointer; color: var(--muted);
+  transition: all .18s;
+}
+.f-chip:hover { border-color: var(--teal2); color: var(--teal2); }
+.f-chip.active { background: var(--navy); color: #fff; border-color: var(--navy); }
+
+.ideas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 14px;
+}
+
+.i-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  border-top: 4px solid var(--ic-color, var(--teal2));
+  padding: 20px 22px;
+  cursor: pointer;
+  transition: transform .22s cubic-bezier(.34,1.56,.64,1), box-shadow .22s;
+  animation: fadeUp .35s ease both;
+}
+
+.i-card:hover { transform: translateY(-4px); box-shadow: var(--shadow2); }
+.i-card.expanded { grid-column: 1 / -1; background: #fafcfb; cursor: default; }
+
+.i-cat {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 0.7rem; font-weight: 700;
+  letter-spacing: .07em; text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.i-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.97rem; font-weight: 700;
+  color: var(--navy); line-height: 1.4; margin-bottom: 6px;
+}
+
+.i-type { font-size: 0.78rem; color: var(--muted); margin-bottom: 6px; }
+
+.assigned-row { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 6px; }
+
+.a-pill {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: #f3f0fd; border: 1px solid #d4c9fa;
+  border-radius: 100px; padding: 2px 10px 2px 5px;
+  font-size: 0.76rem; color: #5a3fc0; font-weight: 500;
+}
+.a-avatar {
+  width: 18px; height: 18px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--teal2), #8b5cf6);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.58rem; font-weight: 800; color: #fff;
+}
+
+.i-detail {
+  display: none; margin-top: 14px; padding-top: 14px;
+  border-top: 1px solid var(--border);
+  animation: fadeUp .25s ease;
+}
+.i-card.expanded .i-detail { display: block; }
+
+.d-row {
+  display: flex; gap: 10px; margin-bottom: 8px;
+  font-size: 0.83rem; line-height: 1.55;
+}
+.d-label {
+  font-size: 0.7rem; font-weight: 700;
+  letter-spacing: .06em; text-transform: uppercase;
+  color: var(--muted); min-width: 72px; padding-top: 2px;
+}
+.d-val { color: var(--text); }
+
+.i-footer {
+  display: flex; justify-content: space-between;
+  align-items: center; margin-top: 12px; flex-wrap: wrap; gap: 6px;
+}
+.i-time { font-size: 0.72rem; color: #a0b4b2; }
+.expand-hint { font-size: 0.74rem; color: var(--muted); transition: opacity .18s; }
+.i-card:hover .expand-hint { opacity: .7; }
+
+/* empty + loading */
+.empty-state {
+  text-align: center; padding: 72px 20px; color: var(--muted);
+}
+.empty-icon { font-size: 3rem; margin-bottom: 14px; display: block; }
+.empty-state p { font-size: 0.92rem; line-height: 1.6; max-width: 280px; margin: 0 auto; }
+.loading-state { text-align: center; padding: 48px; color: var(--muted); font-size: 0.88rem; }
+
+/* divider */
+.section-divider {
+  height: 1px; background: var(--border);
+  margin: 28px 0;
+}
+
+@media (max-width: 660px) {
+  .form-grid, .fg-3, .fg-4 { grid-template-columns: 1fr !important; }
+  .fg-full { grid-column: 1; }
+  .ideas-grid { grid-template-columns: 1fr; }
+  .site-header { padding: 0 20px; }
+  .page-bar { padding: 12px 20px; }
+  .page-body { padding: 24px 16px 60px; }
+  .choice-card { max-width: 100%; }
+  .search-box { width: 100%; }
+}
 </style>
 </head>
 <body>
-<div class="container">
 
-  <!-- HEADER (always visible) -->
-  <header>
-    <div class="kidney-wrap">
-      <div class="kidney"></div>
-      <div class="kidney right"></div>
+<!-- ── STICKY HEADER ── -->
+<header class="site-header">
+  <div class="header-left">
+    <div class="logo-ring">
+      <svg viewBox="0 0 24 24"><path d="M12 4C8 4 5 7.5 5 11c0 4 3 7 5 9 .6.7 2 .7 2 0 2-2 5-5 5-9 0-3.5-3-7-5-7z"/></svg>
     </div>
-    <div class="nnuh-tag">Najah National University Hospital</div>
-    <h1>Najah Nephrology<br>Research Hub</h1>
-    <div class="welcome-box">
-      A shared space for the nephrology team to track ongoing studies and collaborate on new research ideas.
-    </div>
-  </header>
-
-  <!-- ══════════════════════════════
-       LANDING — choose a section
-  ══════════════════════════════ -->
-  <div id="landing">
-    <div class="choice-cards">
-
-      <div class="choice-card" style="--card-accent: var(--teal);" onclick="showSection('ongoing')">
-        <span class="c-icon">🔬</span>
-        <h2>Current Ongoing Research</h2>
-        <p>Track active studies, team members, status updates, and attached files.</p>
-        <button class="choice-btn btn-ongoing">View Ongoing →</button>
-      </div>
-
-      <div class="choice-card" style="--card-accent: var(--lavender);" onclick="showSection('future')">
-        <span class="c-icon">💡</span>
-        <h2>Future Research Ideas</h2>
-        <p>Propose new questions and explore concepts for upcoming nephrology projects.</p>
-        <button class="choice-btn btn-future">Explore Ideas →</button>
-      </div>
-
+    <div>
+      <div class="header-title">Najah Nephrology Research Hub</div>
+      <div class="header-sub">Najah National University Hospital</div>
     </div>
   </div>
+  <div class="header-tag">Research Platform</div>
+</header>
 
-  <!-- ══════════════════════════════
-       ONGOING RESEARCH SECTION
-  ══════════════════════════════ -->
-  <div id="ongoing-section" class="section">
-    <div class="back-nav">
-      <button class="back-btn" onclick="showHome()">← Home</button>
-      <span class="back-crumb">Current Ongoing Research</span>
+<!-- ══════════════════════
+     LANDING
+══════════════════════ -->
+<div id="landing">
+  <p class="landing-eyebrow">Nephrology Research · NNUH</p>
+  <h1 class="landing-title">Where Renal Research<br>Comes Together</h1>
+  <p class="landing-sub">A shared platform for the nephrology team to track active studies and develop new research ideas.</p>
+
+  <div class="choice-row">
+
+    <div class="choice-card" style="--cc-bar:#1f8080; --cc-bg:#e8f4f4;" onclick="showSection('ongoing')">
+      <div class="cc-icon">🔬</div>
+      <h2 class="cc-title">Current Ongoing Research</h2>
+      <p class="cc-desc">Track active studies — status, team, stage reached, and attached files.</p>
+      <button class="cc-btn" style="background:#1f8080;">View Ongoing →</button>
     </div>
 
-    <!-- ADD FORM -->
-    <div class="add-form" style="margin-top:24px;">
-      <h2>✦ Add a Research Project</h2>
+    <div class="choice-card" style="--cc-bar:#b8843a; --cc-bg:#f5ecd9;" onclick="showSection('future')">
+      <div class="cc-icon">💡</div>
+      <h2 class="cc-title">Future Research Ideas</h2>
+      <p class="cc-desc">Propose new questions and collaborate on upcoming nephrology projects.</p>
+      <button class="cc-btn" style="background:#b8843a;">Explore Ideas →</button>
+    </div>
 
-      <div class="form-row four">
-        <div class="field">
+  </div>
+</div>
+
+<!-- ══════════════════════
+     ONGOING SECTION
+══════════════════════ -->
+<div id="ongoing-section" class="section">
+
+  <div class="page-bar">
+    <button class="back-btn" onclick="showHome()">← Home</button>
+    <span class="page-crumb">Current Ongoing Research</span>
+  </div>
+
+  <div class="page-body">
+
+    <!-- ADD FORM -->
+    <div class="form-card">
+      <div class="form-card-title">✦ Add a Research Project</div>
+
+      <div class="form-grid fg-4">
+        <div class="field-group">
           <label>Research Title *</label>
           <input type="text" id="oTitle" placeholder="e.g. AKI in ICU — prospective cohort">
         </div>
-        <div class="field">
+        <div class="field-group">
           <label>Status</label>
           <select id="oStatus">
             <option value="ongoing">🟢 Ongoing</option>
-            <option value="planned">⚪ Planned</option>
+            <option value="planned">🔵 Planned</option>
             <option value="paused">🟠 Paused</option>
             <option value="completed">✅ Completed</option>
           </select>
         </div>
-        <div class="field">
+        <div class="field-group">
           <label>Date Started</label>
           <input type="date" id="oDate">
         </div>
-        <div class="field">
+        <div class="field-group">
+          <label>Stage Reached</label>
+          <select id="oStage">
+            <option value="">— Select stage —</option>
+            <option value="concept">1 · Concept / Idea</option>
+            <option value="protocol">2 · Protocol Writing</option>
+            <option value="ethics">3 · Ethics Submission</option>
+            <option value="ethics_approved">4 · Ethics Approved</option>
+            <option value="recruitment">5 · Patient Recruitment</option>
+            <option value="data_collection">6 · Data Collection</option>
+            <option value="data_analysis">7 · Data Analysis</option>
+            <option value="manuscript">8 · Manuscript Writing</option>
+            <option value="submission">9 · Journal Submission</option>
+            <option value="revision">10 · Under Revision</option>
+            <option value="published">11 · Published ✓</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-grid" style="margin-top:16px;">
+        <div class="field-group">
           <label>Principal Investigator</label>
           <input type="text" id="oPi" placeholder="Dr. …">
         </div>
-      </div>
-
-      <div class="form-row full">
-        <div class="field">
+        <div class="field-group">
           <label>Team / Who is Working on It</label>
-          <input type="text" id="oTeam" placeholder="e.g. Dr. Razan Rabi, Dr. Ahmad Saleh, Lina (coordinator)">
+          <input type="text" id="oTeam" placeholder="e.g. Dr. Razan Rabi, Dr. Ahmad Saleh">
         </div>
       </div>
 
-      <div class="form-row full">
-        <div class="field">
+      <div class="form-grid" style="margin-top:16px;">
+        <div class="field-group fg-full" style="grid-column:1/-1">
           <label>Notes / Brief Description</label>
-          <textarea id="oNotes" rows="2" placeholder="Study design, objectives, current phase…"></textarea>
+          <textarea id="oNotes" rows="2" placeholder="Study design, current phase, objectives…"></textarea>
         </div>
       </div>
 
-      <div class="form-row full">
-        <div class="field">
-          <label>Supplementary File <span style="font-weight:300;text-transform:none;letter-spacing:0;">(optional)</span></label>
-          <div class="file-drop" id="fileDrop">
+      <div class="form-grid" style="margin-top:16px;">
+        <div class="field-group fg-full" style="grid-column:1/-1">
+          <label>Supplementary File <span style="font-weight:300;text-transform:none;letter-spacing:0">(optional)</span></label>
+          <div class="file-zone" id="fileZone">
             <input type="file" id="oFile"
               accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.csv,.txt,.png,.jpg,.jpeg"
               onchange="handleFile(this)">
-            <div>📎</div>
-            <div class="file-drop-text">Click to attach or drag &amp; drop</div>
-            <div class="file-drop-name" id="fileLabel">No file chosen</div>
+            <div class="file-zone-icon">📎</div>
+            <div class="file-zone-text">Click to attach or drag &amp; drop</div>
+            <div class="file-zone-name" id="fileLabel">No file chosen</div>
           </div>
         </div>
       </div>
 
-      <div class="form-bottom">
-        <button class="submit-btn" onclick="addOngoing()">Add Project →</button>
-        <div class="form-msg" id="ongoingMsg"></div>
+      <div class="form-footer">
+        <button class="primary-btn" onclick="addOngoing()">Add Project →</button>
+        <span class="form-msg" id="ongoingMsg"></span>
       </div>
     </div>
 
-    <!-- FILTER + LIST -->
-    <div class="ideas-header">
-      <h3><span id="ongoingCount">0</span> projects</h3>
+    <!-- LIST HEADER -->
+    <div class="list-header">
+      <div class="list-title">
+        Research Projects
+        <span class="count-badge" id="ongoingCount">0</span>
+      </div>
     </div>
 
-    <div class="status-chips">
-      <span class="s-chip active" data-sf="all"       onclick="filterOngoing(this,'all')">All</span>
-      <span class="s-chip"        data-sf="ongoing"   onclick="filterOngoing(this,'ongoing')">Ongoing</span>
-      <span class="s-chip"        data-sf="planned"   onclick="filterOngoing(this,'planned')">Planned</span>
-      <span class="s-chip"        data-sf="paused"    onclick="filterOngoing(this,'paused')">Paused</span>
-      <span class="s-chip"        data-sf="completed" onclick="filterOngoing(this,'completed')">Completed</span>
+    <div class="chips">
+      <span class="chip active" onclick="filterOngoing(this,'all')">All</span>
+      <span class="chip" onclick="filterOngoing(this,'ongoing')">Ongoing</span>
+      <span class="chip" onclick="filterOngoing(this,'planned')">Planned</span>
+      <span class="chip" onclick="filterOngoing(this,'paused')">Paused</span>
+      <span class="chip" onclick="filterOngoing(this,'completed')">Completed</span>
     </div>
 
-    <div id="ongoingList"><div class="loading">Loading projects…</div></div>
+    <div id="ongoingList"><div class="loading-state">Loading projects…</div></div>
+  </div>
+</div>
+
+<!-- ══════════════════════
+     FUTURE IDEAS SECTION
+══════════════════════ -->
+<div id="future-section" class="section">
+
+  <div class="page-bar">
+    <button class="back-btn" onclick="showHome()">← Home</button>
+    <span class="page-crumb">Future Research Ideas</span>
   </div>
 
-  <!-- ══════════════════════════════
-       FUTURE IDEAS SECTION  (original)
-  ══════════════════════════════ -->
-  <div id="future-section" class="section">
-    <div class="back-nav">
-      <button class="back-btn" onclick="showHome()">← Home</button>
-      <span class="back-crumb">Future Research Ideas</span>
-    </div>
+  <div class="page-body">
 
     <!-- FILTER -->
-    <div class="filter-bar" id="filterBar">
-      <button class="filter-btn active" data-filter="all">All</button>
-      <button class="filter-btn" data-filter="aki">AKI &amp; Critical Care</button>
-      <button class="filter-btn" data-filter="ckd">CKD &amp; Progression</button>
-      <button class="filter-btn" data-filter="transplant">Transplant</button>
-      <button class="filter-btn" data-filter="glomerular">Glomerular</button>
-      <button class="filter-btn" data-filter="dialysis">Dialysis</button>
-      <button class="filter-btn" data-filter="onco">Onco-Nephrology</button>
+    <div class="filter-bar">
+      <span class="f-chip active" data-filter="all">All</span>
+      <span class="f-chip" data-filter="aki">AKI &amp; Critical Care</span>
+      <span class="f-chip" data-filter="ckd">CKD &amp; Progression</span>
+      <span class="f-chip" data-filter="transplant">Transplant</span>
+      <span class="f-chip" data-filter="glomerular">Glomerular</span>
+      <span class="f-chip" data-filter="dialysis">Dialysis</span>
+      <span class="f-chip" data-filter="onco">Onco-Nephrology</span>
     </div>
 
     <!-- ADD IDEA FORM -->
-    <div class="add-form">
-      <h2>✦ Add a Research Idea</h2>
+    <div class="form-card">
+      <div class="form-card-title">✦ Add a Research Idea</div>
 
-      <div class="form-row three">
-        <div class="field">
+      <div class="form-grid fg-3">
+        <div class="field-group">
           <label>Your Name</label>
           <input type="text" id="inName" placeholder="e.g. Dr. Ahmed">
         </div>
-        <div class="field">
+        <div class="field-group">
           <label>Assigned To</label>
           <input type="text" id="inAssigned" placeholder="e.g. Dr. Patel, Dr. Lee…">
         </div>
-        <div class="field">
+        <div class="field-group">
           <label>Category</label>
           <select id="inCat">
             <option value="aki">AKI &amp; Critical Care</option>
@@ -867,75 +791,71 @@
         </div>
       </div>
 
-      <div class="form-row">
-        <div class="field">
+      <div class="form-grid" style="margin-top:16px;">
+        <div class="field-group">
           <label>Research Question / Title</label>
           <input type="text" id="inTitle" placeholder="e.g. Role of SGLT2i in AKI prevention in ICU patients…">
         </div>
-        <div class="field">
+        <div class="field-group">
           <label>Study Type</label>
           <input type="text" id="inType" placeholder="e.g. RCT, Cohort, Meta-analysis…">
         </div>
       </div>
 
-      <div class="form-row full">
-        <div class="field">
-          <label>Brief Description &amp; Methods <span style="font-weight:300;text-transform:none;letter-spacing:0;">(optional)</span></label>
+      <div class="form-grid" style="margin-top:16px;">
+        <div class="field-group" style="grid-column:1/-1">
+          <label>Brief Description &amp; Methods <span style="font-weight:300;text-transform:none;letter-spacing:0">(optional)</span></label>
           <textarea id="inDesc" rows="2" placeholder="Study design, population, outcomes, methods…"></textarea>
         </div>
       </div>
 
-      <div class="form-bottom">
-        <button class="submit-btn" id="submitBtn">Add Idea →</button>
-        <div class="form-msg" id="formMsg"></div>
+      <div class="form-footer">
+        <button class="primary-btn" id="submitBtn">Add Idea →</button>
+        <span class="form-msg" id="formMsg"></span>
       </div>
     </div>
 
-    <!-- IDEAS LIST -->
-    <div class="ideas-header">
-      <h3><span id="countEl">0</span> ideas shared</h3>
+    <!-- IDEAS HEADER -->
+    <div class="list-header">
+      <div class="list-title">
+        Submitted Ideas
+        <span class="count-badge" id="countEl">0</span>
+      </div>
       <div class="search-wrap">
         <span class="search-icon">🔍</span>
-        <input type="text" id="searchInput" placeholder="Search ideas…">
+        <input class="search-box" type="text" id="searchInput" placeholder="Search ideas…">
       </div>
     </div>
 
-    <div id="cardContainer"><div class="loading">Loading ideas…</div></div>
+    <div id="cardContainer"><div class="loading-state">Loading ideas…</div></div>
   </div>
+</div>
 
-</div><!-- /container -->
-
+<!-- ════════════════════════════════
+     JAVASCRIPT
+════════════════════════════════ -->
 <script>
-/* ════════════════════════════════════
-   CONFIG
-════════════════════════════════════ */
+/* ── CONFIG ── */
 const BIN_ID  = '6a219dcef5f4af5e29b8db10';
 const API_KEY = '$2a$10$qLbwrfphNyqQzrjV/dqPV.pwLjRO7xfQd7.ic47to8uMQd2JNsb4C';
 const BIN_URL = `https://api.jsonbin.io/v3/b/${BIN_ID}`;
 
-/* ════════════════════════════════════
-   STATE
-════════════════════════════════════ */
-let ideas        = [];
-let ongoingData  = [];
-let activeFilter = 'all';
+/* ── STATE ── */
+let ideas         = [];
+let ongoingData   = [];
+let activeFilter  = 'all';
 let ongoingFilter = 'all';
-let fileBase64   = null;
-let fileName     = null;
+let fileBase64    = null;
+let fileName      = null;
 
-/* ════════════════════════════════════
-   JSONBIN  —  load & save both arrays
-════════════════════════════════════ */
+/* ── JSONBIN ── */
 async function loadAll() {
   try {
     const res  = await fetch(BIN_URL + '/latest', { headers: { 'X-Master-Key': API_KEY } });
     const data = await res.json();
     ideas       = data.record.ideas   || [];
     ongoingData = data.record.ongoing || [];
-  } catch(e) {
-    console.error('Load failed', e);
-    ideas = []; ongoingData = [];
-  }
+  } catch(e) { console.error('Load failed', e); ideas = []; ongoingData = []; }
 }
 
 async function saveAll() {
@@ -948,9 +868,7 @@ async function saveAll() {
   } catch(e) { console.error('Save failed', e); }
 }
 
-/* ════════════════════════════════════
-   NAVIGATION
-════════════════════════════════════ */
+/* ── NAVIGATION ── */
 function showHome() {
   document.getElementById('landing').style.display = '';
   document.getElementById('ongoing-section').classList.remove('active');
@@ -967,12 +885,9 @@ async function showSection(name) {
   if (name === 'future')  renderIdeas();
 }
 
-/* ════════════════════════════════════
-   FILE HANDLING
-════════════════════════════════════ */
+/* ── FILE ── */
 function handleFile(input) {
-  const file = input.files[0];
-  if (!file) return;
+  const file = input.files[0]; if (!file) return;
   fileName = file.name;
   document.getElementById('fileLabel').textContent = fileName;
   const reader = new FileReader();
@@ -980,23 +895,41 @@ function handleFile(input) {
   reader.readAsDataURL(file);
 }
 
-/* ════════════════════════════════════
-   ONGOING RESEARCH
-════════════════════════════════════ */
+/* ════════════════════════
+   ONGOING — stages config
+════════════════════════ */
+const STAGES = {
+  '':                { label:'—',                      pct:0  },
+  'concept':         { label:'Concept / Idea',         pct:5  },
+  'protocol':        { label:'Protocol Writing',       pct:15 },
+  'ethics':          { label:'Ethics Submission',      pct:25 },
+  'ethics_approved': { label:'Ethics Approved',        pct:36 },
+  'recruitment':     { label:'Patient Recruitment',    pct:50 },
+  'data_collection': { label:'Data Collection',        pct:60 },
+  'data_analysis':   { label:'Data Analysis',          pct:72 },
+  'manuscript':      { label:'Manuscript Writing',     pct:82 },
+  'submission':      { label:'Journal Submission',     pct:90 },
+  'revision':        { label:'Under Revision',         pct:95 },
+  'published':       { label:'Published ✓',            pct:100},
+};
+
 const STATUS_LABEL = { ongoing:'Ongoing', planned:'Planned', paused:'Paused', completed:'Completed' };
-const STATUS_COLOR = { ongoing:'var(--teal)', planned:'#8fafc8', paused:'#ffbe3d', completed:'#34d399' };
-const PILL_CLS     = { ongoing:'pill-ongoing', planned:'pill-planned', paused:'pill-paused', completed:'pill-completed' };
+const STATUS_COLOR = {
+  ongoing:   '#1f8080',
+  planned:   '#1a5276',
+  paused:    '#c05c1a',
+  completed: '#217a4b',
+};
 
 async function addOngoing() {
   const title = document.getElementById('oTitle').value.trim();
-  if (!title) {
-    showMsg('ongoingMsg', 'Please enter a research title.', true);
-    return;
-  }
+  if (!title) { setMsg('ongoingMsg','Please enter a research title.','err'); return; }
+
   const entry = {
     id:       Date.now(),
     title,
     status:   document.getElementById('oStatus').value,
+    stage:    document.getElementById('oStage').value,
     date:     document.getElementById('oDate').value,
     pi:       document.getElementById('oPi').value.trim(),
     team:     document.getElementById('oTeam').value.trim(),
@@ -1004,24 +937,26 @@ async function addOngoing() {
     file:     fileBase64,
     fileName: fileName
   };
+
   ongoingData.unshift(entry);
+  setMsg('ongoingMsg','Saving…','ok');
   await saveAll();
-  // reset form
+
   ['oTitle','oPi','oTeam','oNotes'].forEach(id => document.getElementById(id).value = '');
   document.getElementById('oDate').value   = '';
   document.getElementById('oStatus').value = 'ongoing';
+  document.getElementById('oStage').value  = '';
   document.getElementById('oFile').value   = '';
   document.getElementById('fileLabel').textContent = 'No file chosen';
   fileBase64 = null; fileName = null;
-  showMsg('ongoingMsg', '✓ Project added!', false);
+
+  setMsg('ongoingMsg','✓ Project added!','ok');
   renderOngoing();
 }
 
 function filterOngoing(el, val) {
-  document.querySelectorAll('.s-chip').forEach(c => c.classList.remove('active'));
-  el.classList.add('active');
-  ongoingFilter = val;
-  renderOngoing();
+  document.querySelectorAll('.chips .chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active'); ongoingFilter = val; renderOngoing();
 }
 
 function renderOngoing() {
@@ -1034,76 +969,84 @@ function renderOngoing() {
 
   if (!filtered.length) {
     list.innerHTML = `<div class="empty-state">
-      <div class="empty-hex">🔭</div>
+      <span class="empty-icon">🔭</span>
       <p>${ongoingData.length === 0 ? 'No projects yet — add one above!' : 'No projects match this filter.'}</p>
-    </div>`;
-    return;
+    </div>`; return;
   }
 
   list.innerHTML = '';
-  const grid = document.createElement('div');
-  grid.className = 'ongoing-grid';
+  const wrap = document.createElement('div');
+  wrap.className = 'ongoing-list';
 
   filtered.forEach((e, i) => {
+    const stageInfo = STAGES[e.stage || ''] || STAGES[''];
     const card = document.createElement('div');
-    card.className = 'ongoing-card';
-    card.style.setProperty('--status-color', STATUS_COLOR[e.status] || 'var(--teal)');
+    card.className = 'o-card';
+    card.style.setProperty('--oc-color', STATUS_COLOR[e.status] || '#1f8080');
     card.style.animationDelay = `${Math.min(i,8)*0.05}s`;
 
     const dateStr = e.date
-      ? new Date(e.date + 'T12:00:00').toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})
+      ? new Date(e.date+'T12:00:00').toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})
       : '';
 
-    card.innerHTML = `
-      <button class="delete-btn" onclick="deleteOngoing(${e.id})" title="Remove">✕</button>
-      <div class="ongoing-card-top">
-        <div class="ongoing-title">${esc(e.title)}</div>
-        <span class="status-pill ${PILL_CLS[e.status]}">${STATUS_LABEL[e.status]}</span>
+    const stageHtml = stageInfo.pct > 0 ? `
+      <div class="stage-wrap" title="${stageInfo.label} — ${stageInfo.pct}%">
+        <div class="stage-bar" style="width:${stageInfo.pct}%"></div>
       </div>
-      <div class="ongoing-meta">
-        ${e.pi   ? `<span>👤 <strong>PI:</strong> ${esc(e.pi)}</span>` : ''}
-        ${e.team ? `<span>👥 ${esc(e.team)}</span>` : ''}
+      <div class="stage-label-row">
+        <span class="stage-name-badge">📍 ${esc(stageInfo.label)}</span>
+        <span class="stage-pct">${stageInfo.pct}% complete</span>
+      </div>` : '';
+
+    card.innerHTML = `
+      <button class="del-btn" onclick="deleteOngoing(${e.id})" title="Remove">✕</button>
+      <div class="o-card-top">
+        <div class="o-title">${esc(e.title)}</div>
+        <span class="s-pill ${e.status}">${STATUS_LABEL[e.status]}</span>
+      </div>
+      ${stageHtml}
+      <div class="o-meta">
+        ${e.pi    ? `<span>👤 <strong>PI:</strong>&nbsp;${esc(e.pi)}</span>` : ''}
+        ${e.team  ? `<span>👥 ${esc(e.team)}</span>` : ''}
         ${dateStr ? `<span>📅 Started: ${dateStr}</span>` : ''}
       </div>
-      ${e.notes    ? `<div class="ongoing-notes">${esc(e.notes)}</div>` : ''}
+      ${e.notes ? `<div class="o-notes">${esc(e.notes)}</div>` : ''}
       ${e.file && e.fileName
-        ? `<span class="file-badge" onclick="dlFile(${e.id})">📎 ${esc(e.fileName)}</span>`
+        ? `<span class="file-pill" onclick="dlFile(${e.id})">📎 ${esc(e.fileName)}</span>`
         : ''}
     `;
-    grid.appendChild(card);
+    wrap.appendChild(card);
   });
-  list.appendChild(grid);
+  list.appendChild(wrap);
 }
 
 async function deleteOngoing(id) {
   if (!confirm('Remove this project?')) return;
   ongoingData = ongoingData.filter(e => e.id !== id);
-  await saveAll();
-  renderOngoing();
+  await saveAll(); renderOngoing();
 }
 
 function dlFile(id) {
-  const entry = ongoingData.find(e => e.id == id);
-  if (!entry || !entry.file) return;
+  const e = ongoingData.find(x => x.id == id);
+  if (!e || !e.file) return;
   const a = document.createElement('a');
-  a.href = entry.file; a.download = entry.fileName || 'file';
-  a.click();
+  a.href = e.file; a.download = e.fileName || 'file'; a.click();
 }
 
-/* ════════════════════════════════════
-   FUTURE IDEAS  (original logic)
-════════════════════════════════════ */
+/* ════════════════════════
+   FUTURE IDEAS  (original)
+════════════════════════ */
 const CATS = {
-  aki:        { label: 'AKI & Critical Care',  emoji: '⚡', color: '#38bdf8' },
-  ckd:        { label: 'CKD & Progression',     emoji: '📈', color: '#00c2b3' },
-  transplant: { label: 'Transplant',            emoji: '🫀', color: '#ff6b6b' },
-  glomerular: { label: 'Glomerular Disease',    emoji: '🔬', color: '#a78bfa' },
-  dialysis:   { label: 'Dialysis & ESRD',       emoji: '💧', color: '#ffbe3d' },
-  onco:       { label: 'Onco-Nephrology',       emoji: '🧬', color: '#34d399' },
+  aki:        { label:'AKI & Critical Care', emoji:'⚡', color:'#2980b9' },
+  ckd:        { label:'CKD & Progression',   emoji:'📈', color:'#1a6b6b' },
+  transplant: { label:'Transplant',          emoji:'🫀', color:'#c0392b' },
+  glomerular: { label:'Glomerular Disease',  emoji:'🔬', color:'#7d3c98' },
+  dialysis:   { label:'Dialysis & ESRD',     emoji:'💧', color:'#b8843a' },
+  onco:       { label:'Onco-Nephrology',     emoji:'🧬', color:'#1e8449' },
 };
 
 function renderIdeas() {
-  const search = document.getElementById('searchInput').value.toLowerCase().trim();
+  const search = (document.getElementById('searchInput').value || '').toLowerCase().trim();
   let filtered = ideas;
   if (activeFilter !== 'all') filtered = filtered.filter(i => i.cat === activeFilter);
   if (search) filtered = filtered.filter(i =>
@@ -1119,23 +1062,20 @@ function renderIdeas() {
 
   if (!filtered.length) {
     container.innerHTML = `<div class="empty-state">
-      <div class="empty-hex">💡</div>
-      <p>${ideas.length === 0
-        ? 'No ideas yet — be the first to add one above!'
-        : 'No ideas match your current filter.'}</p>
-    </div>`;
-    return;
+      <span class="empty-icon">💡</span>
+      <p>${ideas.length === 0 ? 'No ideas yet — be the first to add one!' : 'No ideas match your filter.'}</p>
+    </div>`; return;
   }
 
   container.innerHTML = '';
   const grid = document.createElement('div');
-  grid.className = 'cards-grid';
+  grid.className = 'ideas-grid';
 
   filtered.slice().reverse().forEach((idea, i) => {
     const cat  = CATS[idea.cat] || CATS.aki;
     const card = document.createElement('div');
-    card.className = 'idea-card';
-    card.style.setProperty('--accent', cat.color);
+    card.className = 'i-card';
+    card.style.setProperty('--ic-color', cat.color);
     card.style.animationDelay = `${Math.min(i,8)*0.05}s`;
 
     const date = idea.ts
@@ -1145,39 +1085,39 @@ function renderIdeas() {
     const hasDetail = idea.desc || idea.assigned || idea.type;
     let assignedHtml = '';
     if (idea.assigned) {
-      const people = idea.assigned.split(/[,;]+/).map(s => s.trim()).filter(Boolean);
-      assignedHtml = people.map(p =>
-        `<span class="assigned-pill"><span class="assigned-avatar">${esc(initials(p))}</span>${esc(p)}</span>`
-      ).join(' ');
+      const people = idea.assigned.split(/[,;]+/).map(s=>s.trim()).filter(Boolean);
+      assignedHtml = `<div class="assigned-row">${
+        people.map(p=>`<span class="a-pill"><span class="a-avatar">${esc(initials(p))}</span>${esc(p)}</span>`).join('')
+      }</div>`;
     }
 
     card.innerHTML = `
-      <div class="card-cat" style="color:${cat.color}">${cat.emoji} ${cat.label}</div>
-      <div class="card-title">${esc(idea.title)}</div>
-      ${idea.type ? `<div class="card-type">📋 ${esc(idea.type)}</div>` : ''}
-      ${idea.assigned ? `<div style="margin-top:8px;display:flex;flex-wrap:wrap;gap:5px;">${assignedHtml}</div>` : ''}
-      <div class="card-detail">
-        ${idea.desc ? `<div class="detail-row"><span class="detail-label">Description</span><span class="detail-val">${esc(idea.desc)}</span></div>` : ''}
-        ${idea.assigned ? `<div class="detail-row"><span class="detail-label">Assigned to</span><span class="detail-val">${esc(idea.assigned)}</span></div>` : ''}
-        ${idea.name ? `<div class="detail-row"><span class="detail-label">Added by</span><span class="detail-val">${esc(idea.name)}</span></div>` : ''}
+      <div class="i-cat" style="color:${cat.color}">${cat.emoji} ${cat.label}</div>
+      <div class="i-title">${esc(idea.title)}</div>
+      ${idea.type ? `<div class="i-type">📋 ${esc(idea.type)}</div>` : ''}
+      ${assignedHtml}
+      <div class="i-detail">
+        ${idea.desc     ? `<div class="d-row"><span class="d-label">Description</span><span class="d-val">${esc(idea.desc)}</span></div>` : ''}
+        ${idea.assigned ? `<div class="d-row"><span class="d-label">Assigned to</span><span class="d-val">${esc(idea.assigned)}</span></div>` : ''}
+        ${idea.name     ? `<div class="d-row"><span class="d-label">Added by</span><span class="d-val">${esc(idea.name)}</span></div>` : ''}
       </div>
-      <div class="card-footer">
-        <span class="card-time">${idea.name ? esc(idea.name)+' · ' : ''}${date}</span>
-        ${hasDetail ? `<span class="toggle-hint" style="color:${cat.color}">tap to expand</span>` : ''}
+      <div class="i-footer">
+        <span class="i-time">${idea.name ? esc(idea.name)+' · ' : ''}${date}</span>
+        ${hasDetail ? `<span class="expand-hint">tap to expand ↓</span>` : ''}
       </div>
     `;
 
     if (hasDetail) {
       card.addEventListener('click', () => {
         const wasOpen = card.classList.contains('expanded');
-        document.querySelectorAll('.idea-card.expanded').forEach(c => {
+        document.querySelectorAll('.i-card.expanded').forEach(c => {
           c.classList.remove('expanded');
-          const h = c.querySelector('.toggle-hint'); if (h) h.textContent = 'tap to expand';
+          const h = c.querySelector('.expand-hint'); if(h) h.textContent='tap to expand ↓';
         });
         if (!wasOpen) {
           card.classList.add('expanded');
-          const h = card.querySelector('.toggle-hint'); if (h) h.textContent = 'tap to close ↑';
-          card.scrollIntoView({ behavior:'smooth', block:'nearest' });
+          const h = card.querySelector('.expand-hint'); if(h) h.textContent='tap to close ↑';
+          card.scrollIntoView({behavior:'smooth',block:'nearest'});
         }
       });
     }
@@ -1193,32 +1133,29 @@ document.getElementById('submitBtn').addEventListener('click', async () => {
   const desc     = document.getElementById('inDesc').value.trim();
   const name     = document.getElementById('inName').value.trim();
   const assigned = document.getElementById('inAssigned').value.trim();
-  const msg      = document.getElementById('formMsg');
 
   if (!title) {
-    msg.style.color = '#ff6b6b';
-    msg.textContent = 'Please enter a research question or title.';
-    document.getElementById('inTitle').focus();
-    return;
+    setMsg('formMsg','Please enter a research question or title.','err');
+    document.getElementById('inTitle').focus(); return;
   }
 
-  ideas.push({ id: Date.now(), cat, title, type, desc, name, assigned, ts: Date.now() });
+  ideas.push({ id:Date.now(), cat, title, type, desc, name, assigned, ts:Date.now() });
+  setMsg('formMsg','Saving…','ok');
   await saveAll();
 
-  ['inTitle','inType','inDesc','inAssigned'].forEach(id => document.getElementById(id).value = '');
-  msg.style.color = 'var(--teal-soft)';
-  msg.textContent = '✓ Idea added successfully!';
-  setTimeout(() => { msg.textContent = ''; }, 3000);
+  ['inTitle','inType','inDesc','inAssigned'].forEach(id => document.getElementById(id).value='');
+  setMsg('formMsg','✓ Idea added successfully!','ok');
+  setTimeout(() => { document.getElementById('formMsg').textContent=''; }, 3000);
 
-  document.querySelectorAll('.filter-btn').forEach(b =>
-    b.classList.toggle('active', b.dataset.filter === 'all'));
+  document.querySelectorAll('.f-chip').forEach(b =>
+    b.classList.toggle('active', b.dataset.filter==='all'));
   activeFilter = 'all';
   renderIdeas();
 });
 
-document.getElementById('filterBar').addEventListener('click', e => {
-  if (!e.target.matches('.filter-btn')) return;
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+document.getElementById('future-section').addEventListener('click', e => {
+  if (!e.target.matches('.f-chip')) return;
+  document.querySelectorAll('.f-chip').forEach(b => b.classList.remove('active'));
   e.target.classList.add('active');
   activeFilter = e.target.dataset.filter;
   renderIdeas();
@@ -1226,20 +1163,18 @@ document.getElementById('filterBar').addEventListener('click', e => {
 
 document.getElementById('searchInput').addEventListener('input', renderIdeas);
 
-/* ════════════════════════════════════
-   UTILS
-════════════════════════════════════ */
+/* ── UTILS ── */
 function esc(s) {
   return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 function initials(name) {
   return name.split(/\s+/).map(w=>w[0]||'').join('').toUpperCase().slice(0,2);
 }
-function showMsg(id, text, isError) {
+function setMsg(id, text, type) {
   const el = document.getElementById(id);
-  el.style.color = isError ? '#ff6b6b' : 'var(--teal-soft)';
+  el.className = 'form-msg ' + type;
   el.textContent = text;
-  if (!isError) setTimeout(() => { el.textContent = ''; }, 3000);
+  if (type === 'ok') setTimeout(() => { el.textContent=''; }, 3000);
 }
 </script>
 </body>
